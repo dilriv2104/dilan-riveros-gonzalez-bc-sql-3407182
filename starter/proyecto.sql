@@ -1,32 +1,24 @@
+SELECT COUNT(*) AS total_productos
+FROM productos;
 
-SELECT 
-    id_producto,
-    nombre,
-    precio
-FROM productos
-WHERE precio BETWEEN 50000 AND 200000;
 
 
 SELECT 
-    nombre,
-    categoria
-FROM productos
-WHERE categoria IN ('Tecnología', 'Oficina', 'Accesorios');
-
+    SUM(precio) AS suma_precios,
+    AVG(precio) AS promedio_precios
+FROM productos;
 
 SELECT 
-    id_producto,
-    nombre
-FROM productos
-WHERE nombre LIKE '%mouse%';
-
-
-SELECT 
-    nombre,
     categoria,
-    precio,
-    stock
+    COUNT(*) AS cantidad_productos,
+    AVG(precio) AS promedio_precio
 FROM productos
-WHERE precio BETWEEN 30000 AND 500000
-AND categoria IN ('Tecnología', 'Gaming')
-AND nombre LIKE '%pro%';
+GROUP BY categoria;
+
+SELECT 
+    categoria,
+    COUNT(*) AS total_productos,
+    SUM(stock) AS stock_total
+FROM productos
+GROUP BY categoria
+HAVING COUNT(*) > 3;
